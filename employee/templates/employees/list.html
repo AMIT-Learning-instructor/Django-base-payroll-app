@@ -1,0 +1,58 @@
+{% extends 'layouts/index.html' %}
+
+
+
+{% block main %}
+<div class="row p-5">
+
+    <div class="col-6">
+        <h2>الموظفين</h2>
+    </div>
+    <div class="col-6"> <a class="btn btn-primary" href="{% url 'employee_create' %}">اضافة موظف</a></div>
+
+    <div class="table-responsive small">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">الاسم</th>
+                    <th scope="col">الرقم القومي</th>
+                    <th scope="col">الراتب الاساسي</th>
+                    <th scope="col">الوظيفة</th>
+                    <th scope="col">action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for employee in employees %}
+
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.ssn }}</td>
+                    <td>{{ employee.salary }}</td>
+                    <td>{{ employee.job.title }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-6"><a href="{% url 'employee_action' employee.id %}"
+                                    class="btn btn-warning">Edit</a></div>
+                            <div class="col-6">
+                                <form action="{% url 'employee_delete' employee.id %}" method="POST">
+                                    {% csrf_token %}<input class="btn btn-danger" type="submit" value="DELETE"></form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock main %}

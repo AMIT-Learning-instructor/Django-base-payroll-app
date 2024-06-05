@@ -15,6 +15,7 @@ class Employee(models.Model):
     ssn = models.CharField( max_length=14)
     job = models.ForeignKey(Jobs , on_delete=models.CASCADE,related_name='employees')
     salary = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
     
     
     def __str__(self):
